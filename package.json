@@ -1,0 +1,44 @@
+{
+  "name": "url-shortner-worker",
+  "version": "1.0.0",
+  "private": true,
+  "homepage": "https://github.com/haseakito/url-shortner-worker",
+  "bugs": {
+    "url": "https://github.com/haseakito/url-shortner-worker/issues"
+  },
+  "author": {
+    "name": "haseakito",
+    "url": "https://github.com/haseakito"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haseakito/url-shortner-worker"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy --minify",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@hono/ua-blocker": "^0.1.27",
+    "@hono/valibot-validator": "^0.6.1",
+    "hono": "^4.12.16",
+    "valibot": "^1.3.1",
+    "vitest": "^4.1.5"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.15.2",
+    "miniflare": "^4.20260430.0",
+    "oxfmt": "^0.47.0",
+    "oxlint": "^1.62.0",
+    "wrangler": "^4.4.0"
+  },
+  "packageManager": "bun@1.2.9"
+}
