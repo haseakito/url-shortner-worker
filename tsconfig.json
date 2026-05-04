@@ -1,0 +1,15 @@
+{
+  "include": ["worker-configuration.d.ts", "env.d.ts", "src/**/*.ts"],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "lib": ["ESNext"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx",
+    "types": ["@cloudflare/vitest-pool-workers/types"]
+  }
+}
