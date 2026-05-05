@@ -8,6 +8,7 @@ import { URLShortenRequestSchema } from "./types";
 import { uaBlocker } from "@hono/ua-blocker";
 import { aiBots } from "@hono/ua-blocker/ai-bots";
 import { randomString, sha512 } from "./util";
+import { errorHandler, notFoundHandler } from "./middleware";
 
 type Bindings = {
   URL_SHORTENER: KVNamespace;
@@ -19,6 +20,9 @@ app.use(logger());
 app.use(requestId());
 app.use(secureHeaders());
 app.use(uaBlocker({ blocklist: aiBots }));
+
+app.onError(errorHandler);
+app.notFound(notFoundHandler);
 
 app
   .basePath("/api")
