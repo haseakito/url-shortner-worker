@@ -14,7 +14,7 @@ describe("URL Shortener Integration Tests", () => {
 
   describe("POST /shorten", () => {
     it("should create a short URL for a valid URL", async () => {
-      const request = new Request("http://localhost:8787/shorten", {
+      const request = new Request("http://localhost:8787/api/shorten", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: "https://example.com" }),
@@ -32,7 +32,7 @@ describe("URL Shortener Integration Tests", () => {
     it("should return existing short URL for duplicate URL", async () => {
       const url = "https://duplicate-test.com";
 
-      const req1 = new Request("http://localhost:8787/shorten", {
+      const req1 = new Request("http://localhost:8787/api/shorten", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url }),
@@ -42,7 +42,7 @@ describe("URL Shortener Integration Tests", () => {
 
       const body1 = (await res1.json()) as URLShortenResponse;
 
-      const req2 = new Request("http://localhost:8787/shorten", {
+      const req2 = new Request("http://localhost:8787/api/shorten", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url }),
@@ -56,7 +56,7 @@ describe("URL Shortener Integration Tests", () => {
     });
 
     it("should return 400 for invalid URL", async () => {
-      const request = new Request("http://localhost:8787/shorten", {
+      const request = new Request("http://localhost:8787/api/shorten", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: "not-a-valid-url" }),
@@ -68,7 +68,7 @@ describe("URL Shortener Integration Tests", () => {
     });
 
     it("should return 400 for missing URL field", async () => {
-      const request = new Request("http://localhost:8787/shorten", {
+      const request = new Request("http://localhost:8787/api/shorten", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({}),
@@ -80,7 +80,7 @@ describe("URL Shortener Integration Tests", () => {
     });
 
     it("should handle URLs with special characters", async () => {
-      const request = new Request("http://localhost:8787/shorten", {
+      const request = new Request("http://localhost:8787/api/shorten", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -98,7 +98,7 @@ describe("URL Shortener Integration Tests", () => {
 
   describe("GET /:key", () => {
     it("should redirect to original URL for existing key", async () => {
-      const createRequest = new Request("http://localhost:8787/shorten", {
+      const createRequest = new Request("http://localhost:8787/api/shorten", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: "https://redirect-test.com" }),
@@ -109,7 +109,7 @@ describe("URL Shortener Integration Tests", () => {
       const createBody = (await createResponse.json()) as URLShortenResponse;
       const key = createBody.key!;
 
-      const request = new Request(`http://localhost:8787/${key}`, {
+      const request = new Request(`http://localhost:8787/api/${key}`, {
         method: "GET",
       });
 
@@ -120,7 +120,7 @@ describe("URL Shortener Integration Tests", () => {
     });
 
     it("should return 404 for non-existent key", async () => {
-      const request = new Request("http://localhost:8787/nonexistent", {
+      const request = new Request("http://localhost:8787/api/nonexistent", {
         method: "GET",
       });
 
@@ -138,7 +138,7 @@ describe("URL Shortener Integration Tests", () => {
       const keys: string[] = [];
 
       for (const url of urls) {
-        const request = new Request("http://localhost:8787/shorten", {
+        const request = new Request("http://localhost:8787/api/shorten", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ url }),
@@ -150,7 +150,7 @@ describe("URL Shortener Integration Tests", () => {
       }
 
       for (let i = 0; i < urls.length; i++) {
-        const request = new Request(`http://localhost:8787/${keys[i]}`, {
+        const request = new Request(`http://localhost:8787/api/${keys[i]}`, {
           method: "GET",
         });
 
