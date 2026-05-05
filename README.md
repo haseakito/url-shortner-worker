@@ -51,7 +51,7 @@ Create a shortened URL.
 **Request:**
 
 ```bash
-curl -X POST https://your-worker.your-subdomain.workers.dev/shorten \
+curl -X POST https://your-worker.your-subdomain.workers.dev/api/shorten \
   -H "Content-Type: application/json" \
   -d '{"url": "https://example.com/very/long/url"}'
 ```
@@ -83,7 +83,7 @@ Redirect to the original URL.
 **Example:**
 
 ```bash
-curl -L https://your-worker.your-subdomain.workers.dev/aB3dE5
+curl -L https://your-worker.your-subdomain.workers.dev/api/aB3dE5
 ```
 
 **Response:**
